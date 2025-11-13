@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the Counter: A Story of Employment & Disability</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: #f8f9fa;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .byline {
+            font-size: 1.2em;
+            font-style: italic;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-child(even) {
+            background: white;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #667eea;
+            text-align: center;
+        }
+
+        /* Text Sections */
+        .text-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.15em;
+        }
+
+        .text-content p {
+            margin-bottom: 25px;
+        }
+
+        .text-content strong {
+            color: #764ba2;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Data Visualization Section */
+        .data-viz {
+            background: white;
+            border-radius: 12px;
+            padding: 60px 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .viz-placeholder {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 400px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 30px;
+            border: 2px dashed #667eea;
+        }
+
+        /* Animation Section - Animated Cards */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto 0;
+        }
+
+        .animated-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: cardFloat 0.6s ease-out forwards;
+        }
+
+        .animated-card:nth-child(1) { animation-delay: 0.1s; }
+        .animated-card:nth-child(2) { animation-delay: 0.3s; }
+        .animated-card:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes cardFloat {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card-content {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Contact List */
+        .contact-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .contact-list h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #764ba2;
+        }
+
+        .contact-item strong {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .contact-item a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Statistics Bar */
+        .stat-bar {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Beyond the Counter</h1>
+        <p class="byline">Breaking Barriers: Employment Opportunities for Adults with Intellectual and Developmental Disabilities</p>
+        <p class="byline">by Ella Donogue, Norah Lesperance, and Chelsea Plunkett</p>
+    </header>
+
+    <!-- Text Section 1: Introduction/Context -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="text-content">
+                <p>Adults with developmental and intellectual disabilities are often unemployed—not for lack of ability, but due to inaccessible workplaces and sparse resources. This trend reflects a broader issue of stereotyping and discrimination against people with disabilities. Adults with I/DD are also impacted by tokenization, infantilization, and "inspiration porn" narratives. Despite successes in legislation and advocacy to protect and promote anti-discrimination against people with disabilities, individuals with developmental and intellectual disabilities face joblessness at about double the rate of the general population. In 2023, just 5% of people with cognitive disabilities were employed, and about 25% lived in households below the poverty line. </p>
+                 <div class="flourish-embed flourish-chart" data-src="visualisation/25768706"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25768706/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+                <div class="highlight-box">
+                    <p><strong>Finding and maintaining a job as an adult with I/DD can be a long process. With the right resources, securing and maintaining employment can be sustainable, but improved policy and support systems are needed.</strong></p>
+                </div>
+
+               <img src= editedtimeline.jpeg height="450px"
+            </div>
+        </div>
+    </section>
+
+    <!-- Animation Section: Animated Cards -->
+    <section class="animation-section">
+        <div class="container">
+            <h2>The Problem</h2>
+            <div class="cards-container">
+                <div class="animated-card">
+                    <div class="card-icon">🏆</div>
+                    <div class="card-title">Access to Competitve Integrated Employment</div>
+                    <div class="card-content">
+                        According to data collected by ThinkWork!, UMass Boston’s research Institute for Community Inclusion, just 17% of adults with intellectual and developmental disabilities are working in integrated employment. Competitive or Integrated Employment (CIE) is the term used to describe an individual job in a community. It categorizes roles in local businesses that are not paid to provide support to the person, pay them a typical wage, and allow them to work alongside coworkers without intellectual disabilities. The mean hourly wage is less than $12 for the 14% of people with disabilities who have a CIE job, and the other 3% of employees who work in “group supported employment” are paid even less.
+
+                    </div>
+                </div>
+                <div class="animated-card">
+                    <div class="card-icon">🌟</div>
+                    <div class="card-title">Flawed Support Systems</div>
+                    <div class="card-content">
+                        ThinkWork also reported that many people with cognitive disabilities have a desire to work, but the response to these desires is often limited. They collected data from the National Core Indicators showing that of the 83% of individuals with I/DD who do not have paid jobs, 43% would like to. And of that percentage, 63% have not documented this goal in their Individualized Service Plan. People with I/DD can receive support in seeking employment through their state’s I/DD Agency and create a plan unique to their goals and needs. However, based on this data, a large number of people with disabilities do not see working as an option feasible or realistic enough to document it as a goal within their plan. 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Visualization Section -->
+    <section class="data-section">
+        <div class="container">
+            <h2>The Numbers Tell a Story</h2>
+            <div class="data-viz">
+                <p>Employment statistics reveal the scale of the challenge facing adults with I/DD:</p>
+                 <img style="display: block; margin-left: auto; margin-right: auto; width: 100%" src=editedemployment.png>            
+
+
+                <div class="stat-bar">
+                    <div class="stat">
+                        <span class="stat-number">80%+</span>
+                        <span class="stat-label">Adults with I/DD unemployed nationwide</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">7.2%</span>
+                        <span class="stat-label">Unemployment rate among people with disabilities, double the rate for those without</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24.2%</span>
+                        <span class="stat-label">Labor force participation rate, compared to 68.1% for those without disabilities</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Text Section 2: Analysis/Conclusion -->
+    <section class="conclusion-section">
+        <div class="container">
+            <h2>Looking Forward: A Potential Solution</h2>
+            <div class="text-content">
+                <p> A small but growing network of coffee shops around the world, including local establishments Bitty & Beau’s Coffee and INspire Cafe, are responding to ongoing employment disparities by working to meaningfully integrate individuals with I/DD into the workforce. 
+                <p> Bitty and Beau’s, marketed as a “human rights movement disguised as a coffee shop,” according to their website, aims to provide accessible and meaningful employment opportunities to people with disabilities, helping reshape public perceptions that limit people with disabilities to token roles that are less fulfilling, less challenging, and allow fewer opportunities for upward mobility. INspire operates with a similar goal. </p>
+                <p> The struggle to find meaningful employment amongst individuals with I/DD remains a nationwide challenge. With setbacks like employer stigma, prejudice and unfair pay rates, many are left sidelined from the workforce, despite having the intellectual and professional capabilities to succeed. </p>
+                <p> Rachel Tanehaus, the ADA coordinator for the city of Cambridge sees these challenges present themselves every day.</p>
+                <p> “Financial independence and employment and such are endemic for people with disabilities. It's one of our biggest issues, and some of the issue absolutely is prejudice,” Tanehous said. </p>
+                <div class="flourish-embed flourish-chart" data-src="visualisation/25788578"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/25788578/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+                <p> According to a 2023 study, by Financial Health Network,  “only half (51%) of working-age people with disabilities said they were able to pay all of their bills on time, compared with 71% of working-age people without disabilities, a basic measure of being able to meet expenses.” </p>
+                <p> Prejudice against those with disabilities is apparent in this study, as well, which notes some of the barriers between disabled people and good jobs are “negative attitudes in workplaces, insufficient workplace accommodations, transportation difficulties, a lack of education and training, and concern about losing benefits.”</p>
+                <p> Emerging coffee shops have latched onto these shortcomings and transformed them into the center of their model to create space for self-sufficiency in the I/DD community. </p>
+                <p> Amy Wright, founder of Bitty and Beau’s, is a mother of two children with down syndrome. She created the business model to benefit not only her own family, but hundreds of people throughout the country who face the same workplace discrimination. The company has become a growing chain with almost 20 locations, employing over 450 individuals with I/DD, and has been recognized in national media including CNN. Wright declined to comment.</p>
+                <img style="display: block; margin-left: auto; margin-right: auto; width: 100%" src=coffee.jpg>
+    <p>photo by Norah Lesperance</p>
+                <p> Over the years, Bitty and Beau’s has faced backlash from disability advocates over an unpaid internship program that has since been eliminated, but was cited by the U.S. Department of Labor in 2016. At the time, prospective employees began as unpaid interns for six weeks before being officially hired, as a softer approach to integration. The company was ordered to pay $2,200 in back wages to six employees who had unknowingly violated interstate commerce laws when handling credit card transactions for out of state customers. </p>
+                <p> In Wakefield Massachusetts earlier this year, a competing coffee shop opened. INspire Cafe’s mission involves creating an integrated work environment for employees of all abilities, promoting inclusion, independence, and inspiring change. “We work together to break down barriers and challenge perceptions,” their website says. </p>
+                <p> INspire and Bitty and Beau’s share an earnestness to help those with disabilities make meaningful connections through work in the service industry. The Bitty & Beau's Cambridge location at 350 Water Street is positioned in the lobby of Sanofi Specialty Care, a company that develops and provides treatment for major illnesses. As a business with long-term, full-time staff, this coffee shop’s location creates an opportunity for Sanofi Employees to become “regulars” at the “in-house” dining option. </p>
+               <img style="display: block; margin-left: auto; margin-right: auto; width: 100%" src=outside.jpg>
+    <p>photo by Norah Lesperance</p>
+                <p> The growth of an industry that encourages and prioritizes employment for individuals with cognitive disabilities helps close the unemployment gap that disproportionately impacts the community. A simultaneous result is a social advantage. </p>
+                <p> “People cannot imagine that they could do the thing if they were in the person's situation, and therefore that person can't do it either.” Tanehaus said, when talking about the misrepresentation of disabled people in the workforce. “This idea that somebody has figured out how to live their life with a disability, doing the job… that just blows people's minds. They don't know how to handle it. People are very, very invested in there being a bright line between disability and not disability.”</p>
+                <p> Thus, individuals with I/DD becoming better represented in the workforce allows for public perception to shift away from rejection of their capability, and coalitions are more likely to be formed. In this sense, the benefits of promoting the commonality of workforce integration for those with cognitive disabilities are twofold. </p>
+    
+            </div>
+        </div>
+    </section>
+ 
+
+    <script>
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
